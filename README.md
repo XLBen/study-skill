@@ -1,6 +1,6 @@
 # Study Flow
 
-一个面向大学课程的 OpenCode 学习 skill。核心模型：**两类输入（课件、题目）× 三类操作（讲解、笔记、习题化）**，外加一个把习题—课件—笔记—参考书串起来的轻量索引。自然语言即可使用，不必记住一堆阶段命令。
+一个面向大学课程的 OpenCode 学习 skill。核心模型：**两类输入（课件、题目）× 三类操作（讲解、笔记、习题化）**，外加一个把习题—课件—笔记—参考书串起来的轻量索引。笔记按知识点类型选用七种卡片模板（概念/公式定理/算法/模型架构/对比/案例/背景），面向初学者讲透。自然语言即可使用，不必记住一堆阶段命令。
 
 ## 安装到一门课
 
@@ -23,7 +23,7 @@
 | 命令 | 用途 | 示例 |
 | --- | --- | --- |
 | `/study` | 任意学习任务（含找相似试卷等） | `/study 帮我找和本周课件相关的真题` |
-| `/explain` | 讲解课件内容或具体题目 | `/explain 课件里的感知机收敛定理`、`/explain 这道题怎么做` |
+| `/explain` | 讲解课件内容或具体题目 | `/explain 课件第 12 页的这条定理`、`/explain 这道题怎么做` |
 | `/notes` | 为课件或题目生成一页式笔记 | `/notes 第 2 讲`、`/notes 把这道错题整理成笔记` |
 | `/practice` | 课件出题 / 题目变式 / 逐题互动 | `/practice 已学章节，一次一题` |
 
@@ -41,8 +41,8 @@
 
 ## 输出与来源约定
 
-`outputs/notes/` 存一页式笔记（含来源与覆盖页码）；`outputs/practice/` 存题集（题干与答案分区，标注 teacher-provided / AI-generated）；`outputs/cache/` 存参考书定位与带页码缓存。题目永远区分老师原题、相似课程真题与生成题；他课试卷不冒充本课往年题；搜不到就如实报告。
+`outputs/notes/` 存讲透式笔记：每个知识点按类型选卡片（概念/公式定理/算法/模型架构/对比/案例/背景），含课件原文引用、直觉讲解与失效点明确的比喻、完整算例、参考书来源（有对应时必标章节页码），并做去 AI 味行文检查；`outputs/practice/` 存题集（题干与答案分区，标注 teacher-provided / AI-generated）；`outputs/cache/` 存参考书定位与带页码缓存。题目永远区分老师原题、相似课程真题与生成题；他课试卷不冒充本课往年题；搜不到就如实报告。
 
 ## 来源与许可
 
-skill 中摘录并适配了 [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills)、[seb1n/awesome-ai-agent-skills 的 note-taking](https://github.com/seb1n/awesome-ai-agent-skills/tree/main/productivity-and-workflow/note-taking) 与 [ZeKaiNie/universal-examprep-skill](https://github.com/ZeKaiNie/universal-examprep-skill) 的部分方法。具体版本链接、改编说明和 MIT 许可文字见 [`SKILL.md`](skills/study-flow/SKILL.md)。
+skill 中摘录并适配了 [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills)、[seb1n/awesome-ai-agent-skills 的 note-taking](https://github.com/seb1n/awesome-ai-agent-skills/tree/main/productivity-and-workflow/note-taking)、[szeyu/vibe-study-skills 的 obsidian-notes-creator](https://github.com/szeyu/vibe-study-skills)、[jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing) 与 [ZeKaiNie/universal-examprep-skill](https://github.com/ZeKaiNie/universal-examprep-skill) 的部分方法。具体版本链接、改编说明和许可证文字见 [`SKILL.md`](skills/study-flow/SKILL.md)。
