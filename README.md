@@ -4,7 +4,21 @@
 
 ## 安装到一门课
 
-将本仓库的 [`skills/study-flow/SKILL.md`](skills/study-flow/SKILL.md) 复制到课程文件夹的 `.opencode/skills/study-flow/SKILL.md`；推荐同时将 [`commands/`](commands/) 中的 Markdown 命令文件复制到该课程文件夹的 `.opencode/commands/`。按需建立以下资料目录：
+**推荐：安装脚本**（在任何电脑上克隆本仓库后运行，需要 python3）：
+
+```bash
+git clone https://github.com/XLBen/study-skill.git
+python3 study-skill/scripts/install.py /path/to/<课程文件夹>
+```
+
+脚本会创建 `.opencode/skills/study-flow/SKILL.md` 和 `.opencode/commands/` 快捷命令；已存在的文件默认跳过，`--force` 才覆盖。装完重启 OpenCode。
+
+**备选方式**：
+
+- 手动复制：把 `skills/study-flow/SKILL.md` 和 `commands/*.md` 拷到课程文件夹的 `.opencode/skills/study-flow/` 与 `.opencode/commands/`。
+- `npx skills add XLBen/study-skill`：装到 `~/.claude/skills/` 等全局目录（opencode 可读），**但不含 `/notes` 等命令**，且是全局一份而非每课一份，与课程文件夹模型不完全匹配。
+
+按需建立以下资料目录：
 
 ```text
 <课程文件夹>/
@@ -16,7 +30,9 @@
 └── outputs/       # 仅放生成内容：notes/ practice/ kb/ cache/
 ```
 
-在课程文件夹中启动 OpenCode；安装或修改 skill 后重新启动 OpenCode。每门课独立存放材料与输出，不要把原始书籍、课件或练习文件提交到这个 skill 仓库。
+每门课独立存放材料与输出，不要把原始书籍、课件或练习文件提交到这个 skill 仓库。
+
+**可选依赖**：笔记里嵌入课件/书本原图需要 poppler（macOS `brew install poppler`；Debian/Ubuntu `apt install poppler-utils`；Windows `choco install poppler`）。没装也能用：图会降级为"见课件 p.N"的说明，其余功能不受影响。PDF 文字提取走 opencode 自带能力，无额外依赖。
 
 ## 怎么用
 
