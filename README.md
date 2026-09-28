@@ -4,11 +4,12 @@
 
 ## 安装到一门课
 
-将本仓库的 [`skills/study-flow/SKILL.md`](skills/study-flow/SKILL.md) 复制到课程文件夹的 `.opencode/skills/study-flow/SKILL.md`，并按需建立以下资料目录：
+将本仓库的 [`skills/study-flow/SKILL.md`](skills/study-flow/SKILL.md) 复制到课程文件夹的 `.opencode/skills/study-flow/SKILL.md`；推荐同时将 [`commands/`](commands/) 中的 Markdown 命令文件复制到该课程文件夹的 `.opencode/commands/`，以明确触发 skill。按需建立以下资料目录：
 
 ```text
 <课程文件夹>/
 ├── .opencode/skills/study-flow/SKILL.md
+├── .opencode/commands/     # 可选：显式加载 skill 的快捷命令
 ├── slides/        # 本课程课件、讲义、课程说明
 ├── readlist/      # 参考书和指定阅读；不是全书考点清单
 ├── questions/     # 老师题目、worksheet、答案及收集的试卷
@@ -19,7 +20,18 @@
 
 ## 怎么提问
 
-直接使用自然语言；下列是示例，不是需要安装的斜杠命令：
+可以直接使用自然语言；也可以使用已安装的快捷命令（这些是真正的 OpenCode `/命令`，均接收后续文字作为参数）：
+
+| 命令 | 用途 | 示例 |
+| --- | --- | --- |
+| `/study` | 通用学习请求 | `/study 对照课件解释这节课的关键概念` |
+| `/preview` | 预习目标课件 | `/preview 下一讲` |
+| `/digest` | 课件速读 | `/digest 第 2 讲` |
+| `/reading` | 查参考书及章节 | `/reading 课件中某个概念对应书的哪一章` |
+| `/practice` | 老师题目或生成题逐题练习 | `/practice 已学章节，先问我再给答案` |
+| `/exam-search` | 核实相似或本课程试卷 | `/exam-search 本周课件涵盖的知识点` |
+
+命令会先加载 `study-flow`，再按当前课程文件夹的资料实际执行；无参数或目标不明确时会询问范围。以下是不依赖快捷命令的自然语言示例：
 
 | 需求 | 示例 |
 | --- | --- |
