@@ -1,64 +1,49 @@
 # Study Flow
 
-一个面向大学课程的 OpenCode 学习 skill。核心模型：**两类输入（课件、题目）× 三类操作（讲解、笔记、习题化）**，外加一个把习题—课件—笔记—参考书串起来的轻量索引。笔记按知识点类型选用七种卡片模板（概念/公式定理/算法/模型架构/对比/案例/背景），面向初学者讲透。自然语言即可使用，不必记住一堆阶段命令。
+一个通用的 OpenCode 学习 skill：围绕你正在学习的**知识点**答疑、练习，并在需要时写成可独立阅读的个人博客式笔记。知识解释优先依据指定书籍，课件用来定位课程范围、术语与题目；教材没有覆盖的内容由课件补足。书籍和课件的例子仍讲不清时，才去找可靠的网络教学实例，最后再用标明来源的自拟例子。
 
-## 安装到一门课
+默认跳过课件中的考试安排、评分比例等行政内容；专门询问时照实回答。自然语言即可使用，不需要固定笔记模板或统一比喻。
 
-**推荐：安装脚本**（在任何电脑上克隆本仓库后运行，需要 python3）：
+## 安装
+
+在任意目录克隆本仓库，指定希望使用 skill 的项目目录（需要 Python 3）：
 
 ```bash
 git clone https://github.com/XLBen/study-skill.git
-python3 study-skill/scripts/install.py /path/to/<课程文件夹>
+python3 study-skill/scripts/install.py /path/to/project
 ```
 
-脚本会创建 `.opencode/skills/study-flow/SKILL.md` 和 `.opencode/commands/` 快捷命令；已存在的文件默认跳过，`--force` 才覆盖。装完重启 OpenCode。
+脚本安装 `skills/study-flow/` 中的 skill 和图片提取脚本，以及 `commands/` 中的快捷命令。已有文件默认跳过；需要把旧版更新为本版时使用 `--force`，更新前先检查是否改过本地副本。安装或更新后重启 OpenCode。
 
-**备选方式**：
+也可以手动复制 `skills/study-flow/` 到项目的 `.opencode/skills/study-flow/`，并按需复制 `commands/*.md` 到 `.opencode/commands/`。只装 skill 也可直接用自然语言请求答疑或笔记。
 
-- 手动复制：把 `skills/study-flow/SKILL.md` 和 `commands/*.md` 拷到课程文件夹的 `.opencode/skills/study-flow/` 与 `.opencode/commands/`。
-- `npx skills add XLBen/study-skill`：装到 `~/.claude/skills/` 等全局目录（opencode 可读），**但不含 `/notes` 等命令**，且是全局一份而非每课一份，与课程文件夹模型不完全匹配。
-
-按需建立以下资料目录：
+材料目录按实际课程情况决定；以下仅是可选约定：
 
 ```text
-<课程文件夹>/
-├── .opencode/skills/study-flow/SKILL.md
-├── .opencode/commands/     # 可选：study / explain / notes / practice
-├── slides/        # 本课程课件、讲义、课程说明
-├── readlist/      # 参考书和指定阅读；按需查阅，不是考点清单
-├── questions/     # 老师题目、worksheet、答案及收集的试卷
-└── outputs/       # 仅放生成内容：notes/ practice/ kb/ cache/
+project/
+├── .opencode/skills/study-flow/   # SKILL.md、可选图片脚本
+├── .opencode/commands/            # 可选快捷命令
+├── readlist/                       # 指定书籍、阅读材料
+├── slides/                         # 课件
+├── questions/                      # 老师题目及答案
+└── outputs/                        # 仅按需保存生成的笔记、题集等
 ```
 
-每门课独立存放材料与输出，不要把原始书籍、课件或练习文件提交到这个 skill 仓库。
+**本仓库只放通用 skill、脚本与命令；不要提交任何课程材料、书籍或生成的笔记。**
 
-**可选依赖**：笔记里嵌入课件/书本原图需要 poppler（macOS `brew install poppler`；Debian/Ubuntu `apt install poppler-utils`；Windows `choco install poppler`）。没装也能用：图会降级为"见课件 p.N"的说明，其余功能不受影响。PDF 文字提取走 opencode 自带能力，无额外依赖。
+## 使用
 
-## 怎么用
+直接提问即可，例如“解释这本书中某个知识点”“讲讲这道题”“把这个知识点写成一篇笔记”。简单问答默认留在聊天里，明确要求笔记或题集时才存入 `outputs/`。
 
-| 命令 | 用途 | 示例 |
-| --- | --- | --- |
-| `/study` | 任意学习任务（含找相似试卷等） | `/study 帮我找和本周课件相关的真题` |
-| `/explain` | 讲解课件内容或具体题目 | `/explain 课件第 12 页的这条定理`、`/explain 这道题怎么做` |
-| `/notes` | 为课件或题目生成一页式笔记 | `/notes 第 2 讲`、`/notes 把这道错题整理成笔记` |
-| `/practice` | 课件出题 / 题目变式 / 逐题互动 | `/practice 已学章节，一次一题` |
+| 可选命令 | 用途 |
+| --- | --- |
+| `/study` | 根据请求答疑、整理知识点或练习 |
+| `/explain` | 讲解指定知识点、公式、图或题目 |
+| `/notes` | 把知识点或指定范围写成文章式笔记 |
+| `/practice` | 逐题互动或按要求生成题集 |
 
-每个入口都能接收课件或题目；执行中按需组合辅助能力（讲解时查参考书、练习时更新索引），并在回复中说明。不使用命令、直接自然语言描述也可以。
-
-## 知识库索引
-
-`outputs/kb/index.md` 是唯一的跨材料登记处，每个知识点一行：
-
-```text
-知识点 → 课件 文件+页 → 笔记 → 题目 文件+题号 → 参考书 章节+页（已核对）
-```
-
-生成笔记或练习时**顺手**更新对应行，不专门"建库"；只登记实际核对过的链接，未查的书页留空、仅主题相近的关联标"待核对"；索引只是检索入口，答题前仍回原文核对。
-
-## 输出与来源约定
-
-`outputs/notes/` 存讲透式笔记：每个知识点按类型选卡片（概念/公式定理/算法/模型架构/对比/案例/背景），含课件原文引用、直觉讲解与失效点明确的比喻、完整算例、参考书来源（有对应时必标章节页码），并做去 AI 味行文检查；`outputs/practice/` 存题集（题干与答案分区，标注 teacher-provided / AI-generated）；`outputs/cache/` 存参考书定位与带页码缓存。题目永远区分老师原题、相似课程真题与生成题；他课试卷不冒充本课往年题；搜不到就如实报告。
+PDF 图片提取脚本需要 PyMuPDF（`pip3 install pymupdf`）；没有它仍可讲解和写笔记，需要原图时回原页核对并注明未能嵌入。使用了书籍、课件、网页、老师答案或 AI 自拟实例时，分别注明实际核对的来源。
 
 ## 来源与许可
 
-skill 中摘录并适配了 [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills)、[seb1n/awesome-ai-agent-skills 的 note-taking](https://github.com/seb1n/awesome-ai-agent-skills/tree/main/productivity-and-workflow/note-taking)、[szeyu/vibe-study-skills 的 obsidian-notes-creator](https://github.com/szeyu/vibe-study-skills)、[jpeggdev/humanize-writing](https://github.com/jpeggdev/humanize-writing) 与 [ZeKaiNie/universal-examprep-skill](https://github.com/ZeKaiNie/universal-examprep-skill) 的部分方法。具体版本链接、改编说明和许可证文字见 [`SKILL.md`](skills/study-flow/SKILL.md)。
+skill 借鉴的上游方法、改编说明与许可证信息见 [`SKILL.md`](skills/study-flow/SKILL.md)。

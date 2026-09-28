@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Install study-flow skill + commands into a course folder.
+"""Install study-flow skill + commands into a project folder.
 
 Usage:
-    python3 scripts/install.py /path/to/course-folder [--force]
+    python3 scripts/install.py /path/to/project [--force]
 
 Creates:
-    <course>/.opencode/skills/study-flow/SKILL.md
-    <course>/.opencode/commands/*.md
+    <project>/.opencode/skills/study-flow/SKILL.md
+    <project>/.opencode/commands/*.md
 
 Idempotent: existing files are skipped unless --force is given.
 Works on macOS, Linux and Windows (needs python3 only).
@@ -23,9 +23,9 @@ COMMAND_SRCS = sorted((REPO / "commands").glob("*.md"))
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Install study-flow skill and commands into a course folder."
+        description="Install study-flow skill and commands into a project folder."
     )
-    parser.add_argument("target", help="course folder to install into")
+    parser.add_argument("target", help="project folder to install into")
     parser.add_argument(
         "--force", action="store_true", help="overwrite existing files"
     )
@@ -60,12 +60,9 @@ def main() -> None:
 
     print()
     print("Next steps:")
-    print("  1. Restart OpenCode inside the course folder.")
-    print("  2. Optional, only for embedding slide/book figures as images:")
-    print("     pip3 install pymupdf   (Homebrew python: add --break-system-packages)")
-    print("     or install poppler: brew install poppler / apt install poppler-utils")
-    print("     Without a renderer the skill still works; figures fall back to")
-    print("     a 'see slide p.N' note instead of an embedded image.")
+    print("  1. Restart OpenCode inside the project folder.")
+    print("  2. Optional for extracting PDF figures: pip3 install pymupdf")
+    print("     Without it, use the source PDF page when a figure is needed.")
 
 
 if __name__ == "__main__":
