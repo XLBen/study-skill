@@ -27,6 +27,7 @@
 | `/study` | 通用学习请求 | `/study 对照课件解释这节课的关键概念` |
 | `/preview` | 预习目标课件 | `/preview 下一讲` |
 | `/digest` | 课件速读 | `/digest 第 2 讲` |
+| `/notes` | 快速生成带出处的课件笔记 | `/notes 第 2 讲` |
 | `/reading` | 查参考书及章节 | `/reading 课件中某个概念对应书的哪一章` |
 | `/practice` | 老师题目或生成题逐题练习 | `/practice 已学章节，先问我再给答案` |
 | `/exam-search` | 核实相似或本课程试卷 | `/exam-search 本周课件涵盖的知识点` |
@@ -43,8 +44,8 @@
 | 查找相似试卷 | `先核对已学范围，再找能验证来源的类似课程试卷；不要把别的课的题叫本课真题。` |
 | 建参考书索引 | `只为目前讲到的课件建立参考书章节定位，不需要速读整本书。` |
 
-简单问题可直接在聊天中回答；较完整的笔记、练习题集、外部题目检索结果和可复用缓存保存在 `outputs/` 下。需要时分别建立 `analysis/`、`practice/`、`exam-search/`、`cache/` 子目录。保存的 Markdown 会写明范围、核心结论、证据位置、分析或题目、未核实事项。参考书通常先建立章节定位，反复使用时才考虑缓存带页码文本；重要公式和图仍核对原文。
+简单问题可直接在聊天中回答；快速笔记、较完整的分析、练习题集、外部题目检索结果和可复用缓存保存在 `outputs/` 下。需要时分别建立 `notes/`、`analysis/`、`practice/`、`exam-search/`、`cache/` 子目录。`/notes` 默认生成一讲一页式 Markdown，写明来源、覆盖页码、关键概念、自检题和未核实事项；其他保存的结果也需标注证据位置。参考书通常先建立章节定位，反复使用时才考虑缓存带页码文本；重要公式和图仍核对原文。
 
 ## 来源与许可
 
-skill 中摘录并适配了 [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills) 与 [ZeKaiNie/universal-examprep-skill](https://github.com/ZeKaiNie/universal-examprep-skill) 的部分方法。具体版本链接、改编说明和 MIT 许可文字见 [`SKILL.md`](skills/study-flow/SKILL.md)。
+skill 中摘录并适配了 [sanyuan0704/sanyuan-skills](https://github.com/sanyuan0704/sanyuan-skills)、[seb1n/awesome-ai-agent-skills 的 note-taking](https://github.com/seb1n/awesome-ai-agent-skills/tree/main/productivity-and-workflow/note-taking) 与 [ZeKaiNie/universal-examprep-skill](https://github.com/ZeKaiNie/universal-examprep-skill) 的部分方法。具体版本链接、改编说明和 MIT 许可文字见 [`SKILL.md`](skills/study-flow/SKILL.md)。
