@@ -1,0 +1,16 @@
+# Course materials and generated study content are never part of the skill repository.
+/slides/
+/readlist/
+/questions/
+/outputs/
+*.pdf
+*.ppt
+*.pptx
+*.doc
+*.docx
+*.epub
+*.png
+*.jpg
+*.jpeg
+*.heic
+.DS_Store
