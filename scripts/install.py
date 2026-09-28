@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-SKILL_SRC = REPO / "skills" / "study-flow" / "SKILL.md"
+SKILL_DIR_SRC = REPO / "skills" / "study-flow"
 COMMAND_SRCS = sorted((REPO / "commands").glob("*.md"))
 
 
@@ -33,10 +33,14 @@ def main() -> None:
 
     target = Path(args.target).expanduser().resolve()
     target.mkdir(parents=True, exist_ok=True)
-    if not SKILL_SRC.is_file():
-        sys.exit(f"error: skill file missing in repo: {SKILL_SRC}")
+    if not SKILL_DIR_SRC.is_dir():
+        sys.exit(f"error: skill folder missing in repo: {SKILL_DIR_SRC}")
 
-    installs = [(SKILL_SRC, target / ".opencode" / "skills" / "study-flow" / "SKILL.md")]
+    installs = []
+    skill_dst_dir = target / ".opencode" / "skills" / "study-flow"
+    for src in sorted(SKILL_DIR_SRC.rglob("*")):
+        if src.is_file():
+            installs.append((src, skill_dst_dir / src.relative_to(SKILL_DIR_SRC)))
     installs += [(src, target / ".opencode" / "commands" / src.name) for src in COMMAND_SRCS]
 
     done: list[Path] = []
@@ -57,11 +61,10 @@ def main() -> None:
     print()
     print("Next steps:")
     print("  1. Restart OpenCode inside the course folder.")
-    print("  2. Optional, only for embedding slide figures as images:")
-    print("     macOS:         brew install poppler")
-    print("     Debian/Ubuntu: sudo apt install poppler-utils")
-    print("     Windows:       choco install poppler")
-    print("     Without poppler the skill still works; figures fall back to")
+    print("  2. Optional, only for embedding slide/book figures as images:")
+    print("     pip3 install pymupdf   (Homebrew python: add --break-system-packages)")
+    print("     or install poppler: brew install poppler / apt install poppler-utils")
+    print("     Without a renderer the skill still works; figures fall back to")
     print("     a 'see slide p.N' note instead of an embedded image.")
 
 
